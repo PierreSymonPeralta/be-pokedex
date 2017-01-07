@@ -17,9 +17,7 @@ app.all('*', function(req, res, next) {
 	  } 
 }); 
 
-
 //==========RESTFUL APIs============//
-
 
 //get all pokemon
 app.get('/pokemons', function (req, res) {
@@ -45,45 +43,64 @@ app.get('/types', function (req, res) {
 //get specific pokemon thm
 app.get('/pokemons/thm/:id', function (req, res) {
     var fileName = '';
+    var hasFile = false;
     fs.readdir(__dirname + "/" + "data/images/thm", function(err, files){
         if(err) throw err;
         files.forEach(function(file){
             var pokemonId = file.substr(0, 3);
             if (req.params.id == pokemonId) {
                 fileName = file;
+                hasFile = true;
             }
         });
-        res.sendFile( __dirname + "/" + "data/images/thm/" + fileName);
+        if (hasFile) {
+            res.sendFile( __dirname + "/" + "data/images/thm/" + fileName);
+        } else {
+            res.end('none');
+        }
    });
 });
 
 //get specific pokemon image
 app.get('/pokemons/img/:id', function (req, res) {
     var fileName = '';
+    var hasFile = false;
     fs.readdir(__dirname + "/" + "data/images/img", function(err, files){
         if(err) throw err;
         files.forEach(function(file){
             var pokemonId = file.substr(0, 3);
             if (req.params.id == pokemonId) {
                 fileName = file;
+                hasFile = true;
             }
         });
-        res.sendFile( __dirname + "/" + "data/images/img/" + fileName);
+        if (hasFile) {
+            res.sendFile( __dirname + "/" + "data/images/img/" + fileName);
+        } else {
+            res.end('none');
+        }
    });
 });
 
 //get specific pokemon spr
 app.get('/pokemons/spr/:id', function (req, res) {
     var fileName = '';
+    var hasFile = false;
     fs.readdir(__dirname + "/" + "data/images/spr", function(err, files){
         if(err) throw err;
         files.forEach(function(file){
             var pokemonId = file.substr(0, 3);
             if (req.params.id == pokemonId) {
                 fileName = file;
+                hasFile = true;
             }
         });
-        res.sendFile( __dirname + "/" + "data/images/spr/" + fileName);
+        if (hasFile) {
+            res.sendFile( __dirname + "/" + "data/images/spr/" + fileName);
+        } else {
+            res.end('none');
+        }
    });
 });
+
 app.listen(process.env.PORT || 4730);
